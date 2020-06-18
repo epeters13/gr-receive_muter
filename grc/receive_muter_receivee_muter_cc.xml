@@ -1,0 +1,106 @@
+<?xml version="1.0"?>
+<block>
+  <name>Receive mute</name>
+  <key>receive_muter_receivee_muter_cc</key>
+  <category>[receive_muter]</category>
+  <import>import receive_muter</import>
+  <make>receive_muter.receivee_muter_cc($enabled, $samp_rate, $mute_time_after, $mute_time_before, $white_noise_var, $mute_type, $attenuate_dB)</make>
+  <!-- Make one 'param' node for every Parameter you want settable from the GUI.
+       Sub-nodes:
+       * name
+       * key (makes the value accessible as $keyname, e.g. in the make node)
+       * type -->
+  <param>
+    <name>Sample rate</name>
+    <key>samp_rate</key>
+    <value>samp_rate</value>
+    <type>float</type>
+  </param>
+
+  <param>
+    <name>Enable</name>
+    <key>enabled</key>
+    <value>True</value>
+    <type>bool</type>
+    <option>
+      <name>Yes</name>
+      <key>True</key>
+    </option>
+    <option>
+      <name>No</name>
+      <key>False</key>
+    </option>
+  </param>
+  <param>
+    <name>Mute time before [s]</name>
+    <key>mute_time_before</key>
+    <value>0.02</value>
+    <type>float</type>
+  </param>
+  <param>
+    <name>Mute time after [s]</name>
+    <key>mute_time_after</key>
+    <value>0.01</value>
+    <type>float</type>
+  </param>
+  <param>
+    <name>White noise variance</name>
+    <key>white_noise_var</key>
+    <value>1e-6</value>
+    <type>float</type>
+  </param>
+  <param>
+    <name>Mute type</name>
+    <key>mute_type</key>
+    <value>0</value>
+    <type>int</type>
+    <option>
+      <name>Attenuate</name>
+      <key>0</key>
+    </option>
+    <option>
+      <name>White noise</name>
+      <key>1</key>
+    </option>
+    <option>
+      <name>Zeros</name>
+      <key>2</key>
+    </option>
+  </param>
+  <param>
+    <name>Attenuation [dB]</name>
+    <key>attenuate_dB</key>
+    <value>40</value>
+    <type>float</type>
+  </param>
+
+  <!-- Make one 'sink' node per input. Sub-nodes:
+       * name (an identifier for the GUI)
+       * type
+       * vlen
+       * optional (set to 1 for optional inputs) -->
+  <sink>
+    <name>in</name>
+    <type>complex</type>
+  </sink>
+  <sink>
+    <name>set_mute</name>
+    <type>message</type>
+    <optional>1</optional>
+  </sink>
+  <sink>
+    <name>clear_mute</name>
+    <type>message</type>
+    <optional>1</optional>
+  </sink>
+
+  <!-- Make one 'source' node per output. Sub-nodes:
+       * name (an identifier for the GUI)
+       * type
+       * vlen
+       * optional (set to 1 for optional inputs) -->
+  <source>
+    <name>out</name>
+    <type>complex</type>
+  </source>
+</block>

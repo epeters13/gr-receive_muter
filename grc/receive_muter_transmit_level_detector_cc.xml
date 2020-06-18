@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<block>
+  <name>Transmit level detector</name>
+  <key>receive_muter_transmit_level_detector_cc</key>
+  <category>[receive_muter]</category>
+  <import>import receive_muter</import>
+  <make>receive_muter.transmit_level_detector_cc($threshold)</make>
+  <!-- Make one 'param' node for every Parameter you want settable from the GUI.
+       Sub-nodes:
+       * name
+       * key (makes the value accessible as $keyname, e.g. in the make node)
+       * type -->
+  <param>
+    <name>Threshold</name>
+    <key>threshold</key>
+    <value>0.5</value>
+    <type>float</type>
+  </param>
+
+  <!-- Make one 'sink' node per input. Sub-nodes:
+       * name (an identifier for the GUI)
+       * type
+       * vlen
+       * optional (set to 1 for optional inputs) -->
+  <sink>
+    <name>in</name>
+    <type>complex</type>
+  </sink>
+
+  <!-- Make one 'source' node per output. Sub-nodes:
+       * name (an identifier for the GUI)
+       * type
+       * vlen
+       * optional (set to 1 for optional inputs) -->
+  <source>
+    <name>out</name>
+    <type>complex</type>
+  </source>
+  <source>
+    <name>set_mute</name>
+    <type>message</type>
+    <optional>1</optional>
+  </source>
+  <source>
+    <name>clear_mute</name>
+    <type>message</type>
+    <optional>1</optional>
+  </source>
+</block>

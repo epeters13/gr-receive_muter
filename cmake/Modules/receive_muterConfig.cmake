@@ -1,0 +1,30 @@
+INCLUDE(FindPkgConfig)
+PKG_CHECK_MODULES(PC_RECEIVE_MUTER receive_muter)
+
+FIND_PATH(
+    RECEIVE_MUTER_INCLUDE_DIRS
+    NAMES receive_muter/api.h
+    HINTS $ENV{RECEIVE_MUTER_DIR}/include
+        ${PC_RECEIVE_MUTER_INCLUDEDIR}
+    PATHS ${CMAKE_INSTALL_PREFIX}/include
+          /usr/local/include
+          /usr/include
+)
+
+FIND_LIBRARY(
+    RECEIVE_MUTER_LIBRARIES
+    NAMES gnuradio-receive_muter
+    HINTS $ENV{RECEIVE_MUTER_DIR}/lib
+        ${PC_RECEIVE_MUTER_LIBDIR}
+    PATHS ${CMAKE_INSTALL_PREFIX}/lib
+          ${CMAKE_INSTALL_PREFIX}/lib64
+          /usr/local/lib
+          /usr/local/lib64
+          /usr/lib
+          /usr/lib64
+)
+
+INCLUDE(FindPackageHandleStandardArgs)
+FIND_PACKAGE_HANDLE_STANDARD_ARGS(RECEIVE_MUTER DEFAULT_MSG RECEIVE_MUTER_LIBRARIES RECEIVE_MUTER_INCLUDE_DIRS)
+MARK_AS_ADVANCED(RECEIVE_MUTER_LIBRARIES RECEIVE_MUTER_INCLUDE_DIRS)
+
