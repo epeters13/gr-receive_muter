@@ -1124,11 +1124,11 @@
     </param>
     <param>
       <key>mute_time_after</key>
-      <value>0.01</value>
+      <value>0.05</value>
     </param>
     <param>
       <key>mute_time_before</key>
-      <value>0.02</value>
+      <value>2</value>
     </param>
     <param>
       <key>mute_type</key>

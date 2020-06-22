@@ -72,16 +72,23 @@ class receivee_muter_cc(gr.sync_block):
         else create a new state in the end of the queue and add the count
 
         """
+        current_mute_n_samples_before = self.mute_n_samples_before
         if len(self.mute_log) > 0:
             last_state = self.mute_log[-1]['mute'] 
             if last_state == True:
                 self.mute_log[-1]['count'] += pmt.to_python(msg)
                 return
             else:
-                self.mute_log[-1]['count'] -= self.mute_n_samples_before
+                current_unmute_len = max((self.mute_log[-1]['count'],0))
+                if current_unmute_len < self.mute_n_samples_before: # don't go below 0
+                    current_mute_n_samples_before = current_unmute_len
+                
+                self.mute_log[-1]['count'] -= current_mute_n_samples_before
+                
+                    
 
         # else do
-        self.mute_log.append({'mute':True,'count': self.mute_n_samples_before + self.mute_n_samples_after + pmt.to_python(msg)})
+        self.mute_log.append({'mute':True,'count': current_mute_n_samples_before + self.mute_n_samples_after + pmt.to_python(msg)})
                 
 
     def clear_mute(self,msg):
