@@ -37,9 +37,6 @@ class receivee_muter_cc(gr.sync_block):
     mute_time_before: time in seconds to mute before the packet
     mute_time_agter: time in seconds to mute after packets    
     """
-    muted = False
-
-    mute_log = []
 
 
     def __init__(self, enabled ,samp_rate,mute_time_after,mute_time_before,white_noise_var,mute_type,attenuate_dB):
@@ -54,6 +51,11 @@ class receivee_muter_cc(gr.sync_block):
         self.set_msg_handler(pmt.intern('set_mute'), self.set_mute)
         self.set_msg_handler(pmt.intern('clear_mute'), self.clear_mute)
 
+        # initialize variables
+        self.muted = False
+        self.mute_log = []
+
+        
         
         self.samp_rate = samp_rate
         self.noise_std = np.sqrt(white_noise_var)
